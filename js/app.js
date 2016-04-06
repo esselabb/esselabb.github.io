@@ -1,9 +1,15 @@
 var app = angular.module('myApp', []);
+var firebase = new Firebase('https://scorching-inferno-4736.firebaseio.com/');
+
 app.controller('chatController', function($scope) {
-    $scope.message = 'ok';
+    $scope.message = '';
     
     $scope.enterMessage = function() {
-        alert('I am an alert');
+        var message = ($scope.message).trim();
+        if (message != '') {
+            firebase.set({name: '', message: message});
+        }
+        $scope.message = '';
     };
 });
 
