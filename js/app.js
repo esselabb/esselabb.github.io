@@ -1,28 +1,20 @@
-var app = angular.module('myApp', []);
-var firebase = new Firebase('https://scorching-inferno-4736.firebaseio.com/');
-
-app.controller('chatController', function($scope) {
-    $scope.message = '';
+$( document ).ready(function() {
     
-    $scope.enterMessage = function() {
-        var message = ($scope.message).trim();
-        if (message != '') {
-            firebase.push({name: '', message: message});
-        }
-        $scope.message = '';
-    };
-});
-
-app.directive('myEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.myEnter);
-                });
-
-                event.preventDefault();
+    var firebase = new Firebase('https://scorching-inferno-4736.firebaseio.com/');
+    
+    firebase.on('child_added', function(snapshot) {
+        console.log(snapshot);
+    });
+    
+    $('#message_input').keypress(function(e) {
+        if (e.which == 13) {
+            var message = $('#message_input').val().trim();
+            if (message != '') {
+                firebase.push({name: '', message: message});
             }
-        });
-    };
+            $('#message_input').val('');
+        }
+    });   
+    
 });
+
