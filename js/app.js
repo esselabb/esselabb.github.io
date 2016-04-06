@@ -3,13 +3,13 @@ $( document ).ready(function() {
     var firebase = new Firebase('https://scorching-inferno-4736.firebaseio.com/');
     
     var isBotttomMessage = true;
+    var messageIndex = 0;
     
     $('#myModal').modal('show');
     
     $('#myModal').on('hide.bs.modal', function(e) {
         if (!isValidUsername()) {
             e.preventDefault();
-            
         }
     })
     
@@ -20,10 +20,11 @@ $( document ).ready(function() {
     firebase.on('child_added', function(snapshot) {
         var data = snapshot.val();
         if (typeof data != 'undefined' && typeof data.name != 'undefined' && typeof data.message != 'undefined') {
-            $('.message-response').find('.inner').append('<p><b>' + data.name + ':</b> ' + data.message + ' </p>');
+            $('.message-response').find('.inner').append('<p class="message" id="message' + messageIndex +'"><b>' + htmlEntities(data.name) + ':</b> ' + htmlEntities(data.message) + ' </p>');
+            $('p#message'+messageIndex).emoticonize();
+            messageIndex++;
         }
         if (isBotttomMessage) {
-            console.log($('.message-response').find('.inner').height());
             $('.message-response').scrollTop($('.message-response').find('.inner').height());
         }
     });
@@ -40,12 +41,14 @@ $( document ).ready(function() {
     
     $('.message-response').scroll(function() {
         isBotttomMessage = $('.message-response').scrollTop() >= $('.message-response').find('.inner').height() - 600 - 15 ;
-        console.log(isBotttomMessage);
     });
     
     function isValidUsername() {
         return $('#username_input').val().trim() != '';
     };
     
+    function htmlEntities(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
 });
 
