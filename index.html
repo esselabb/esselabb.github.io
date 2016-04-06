@@ -5,7 +5,7 @@
   </head>
   
   <body ng-app="myApp" ng-controller="chatController">
-      <input ng-model="message" ng-keypress="enterMessage()" type="text" class="form-control" placeholder="Enter to send">
+      <input ng-model="message" ng-keypress="enterMessage($event)" type="text" class="form-control" placeholder="Enter to send">
       
   </body>
     
