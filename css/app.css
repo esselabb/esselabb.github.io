@@ -1,0 +1,12 @@
+.message-response {
+   height: 600px;
+   width: 600px;
+   margin: auto;
+   overflow: auto;
+}
+
+#message_input {
+    margin: auto;
+    width: 600px;
+    margin-top: 10px;
+}
