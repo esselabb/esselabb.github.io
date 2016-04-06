@@ -7,7 +7,7 @@ app.controller('chatController', function($scope) {
     $scope.enterMessage = function() {
         var message = ($scope.message).trim();
         if (message != '') {
-            firebase.set({name: '', message: message});
+            firebase.push({name: '', message: message});
         }
         $scope.message = '';
     };
