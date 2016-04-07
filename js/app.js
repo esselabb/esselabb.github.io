@@ -1,6 +1,15 @@
 $( document ).ready(function() {
-    
-
+   
+   window.emojiPicker = new EmojiPicker({
+        emojiable_selector: '[data-emojiable=true]',
+        assetsPath: 'img',
+        popupButtonClasses: 'fa fa-smile-o'
+      });
+      // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+      // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+      // It can be called as many times as necessary; previously converted input fields will not be converted again
+      window.emojiPicker.discover();
+      
     var firebase = new Firebase('https://scorching-inferno-4736.firebaseio.com/');
     var facebookData;
     
@@ -10,6 +19,7 @@ $( document ).ready(function() {
         } else {
             console.log("Authenticated successfully with payload:", authData);
             facebookData = authData;
+            console.log(facebookData);
             onReceiveMessage();
         }
     });
@@ -19,13 +29,21 @@ $( document ).ready(function() {
     
     
     
-    $('#message_input').keypress(function(e) {
+    $('#input_message').keypress(function(e) {
         if (e.which == 13) {
-            var message = $('#message_input').val().trim();
-            if (message != '') {
-                firebase.push({name: facebookData.facebook.displayName, message: message});
+            // var message = $('.emoji-wysiwyg-editor').val().trim();
+            // if (message != '') {
+            //     firebase.push({name: facebookData.facebook.displayName, message: message});
+            // }
+            //$('.emoji-wysiwyg-editor').val('');
+            
+            var messageObject = $('#input_message').find('.emoji-wysiwyg-editor').clone();
+            var imgs = messageObject.find('img');
+            for (i = 0; i < imgs.length; i++) {
+                console.log(imgs.eq(i).attr('alt'));
             }
-            $('#message_input').val('');
+  
+            $('#input_message').find('.emoji-wysiwyg-editor').html('');
         }
     });   
     
@@ -41,8 +59,7 @@ $( document ).ready(function() {
         firebase.on('child_added', function(snapshot) {
             var data = snapshot.val();
             if (typeof data != 'undefined' && typeof data.name != 'undefined' && typeof data.message != 'undefined') {
-                $('.message-response').find('.inner').append('<p class="message" id="message' + messageIndex +'"><b>' + htmlEntities(data.name) + ':</b> ' + htmlEntities(data.message) + ' </p>');
-                $('p#message'+messageIndex).emoticonize();
+                $('.message-response').find('.inner').append('<div class="message" id="message' + messageIndex +'"><b>' + htmlEntities(data.name) + ':</b> ' + htmlEntities(data.message) + ' </div>');
                 messageIndex++;
             }
             if (isBotttomMessage) {
