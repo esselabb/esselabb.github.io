@@ -69,16 +69,16 @@ var app = {
        $('#input_message').keypress(function(e) {
             if (e.which == 13) {
                 e.preventDefault();
-                var message = $('#input_message_input').val().trim();
+                var message = $('#input_message_input').val();
                 var contenteditable = $('#input_message').find('.emoji-wysiwyg-editor');
                 if (message == '') {
-                    message = contenteditable.html();
+                    message = contenteditable.html().replace(/&nbsp;/g, ' ').trim(); 
                 }
-                if (message != null) {
-                    console.log(facebookData.facebook.displayName);
+                if (message != '') {
                     firebase.push({'name': facebookData.facebook.displayName, 'message': message});
                 }
                 contenteditable.html('');
+                $('#input_message_input').val('');
             }
         });   
     }
