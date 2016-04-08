@@ -26,6 +26,15 @@ var app = {
             } else {
                 console.log("Authenticated successfully with payload:", authData);
                 facebookData = authData;
+                var data = {
+                    'users': {
+                        'fb_id': facebookData.facebook.id,
+                        'name': facebookData.facebook.displayName,
+                        'image': facebookData.facebook.profileImageURL
+                    }
+                };
+                firebase.update(data);
+                
                 firebase.on('child_added', function(snapshot) {
                     var data = snapshot.val();
                     if (typeof data != 'undefined' && typeof data.name != 'undefined' && typeof data.message != 'undefined') {
@@ -81,7 +90,9 @@ var app = {
                 $('#input_message_input').val('');
             }
         });   
-    }
+    },
+    
+    
 };
 
 var utils = {
