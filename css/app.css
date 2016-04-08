@@ -1,6 +1,4 @@
 .message-response {
-   height: 600px;
-   width: 600px;
    margin: auto;
    overflow: auto;
 }
@@ -19,5 +17,9 @@ div.message {
 
 .emoji-picker-container {
     width: 600px;
-    margin: 30px auto auto;
+    margin-top: 30px;
+}
+
+body{
+    padding: 20px;
 }
