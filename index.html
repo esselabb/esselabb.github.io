@@ -1,33 +1,54 @@
+﻿<!DOCTYPE html>
 <html>
-  <head>
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-      <link rel="stylesheet" href="css/app.css" >
-      <link href="css/nanoscroller.css" rel="stylesheet">
-      <link href="css/emoji.css" rel="stylesheet">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  </head>
-  
-  <body>
-      <div class="message-response">
-         <div class="inner">
-         </div>
-      </div>
-      
-      <p class="lead emoji-picker-container" id="input_message">
-          <input type="text" class="form-control" placeholder="Press Enter to send" data-emojiable="true">
-      </p>
-          
-  </body>
-  
-<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
-<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="  crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<script src='js/app.js'></script>
-<script src="js/nanoscroller.min.js"></script>
-<script src="js/tether.min.js"></script>
-<script src="js/config.js"></script>
-<script src="js/util.js"></script>
-<script src="js/jquery.emojiarea.js"></script>
-<script src="js/emoji-picker.js"></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>HeroWP.com Countdown / Coming Soon Page</title>
+
+<!--CSS-->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/bootstrap-light.css">
+<link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+<!--/CSS-->
+
+<!--JS-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/jquery.plugin.js"></script>
+<script src="js/jquery.countdown.js"></script>
+<script>
+$(function () {
+	$('#defaultCountdown').countdown({until: new Date(2016, 12, 1)}); 
+	//Replace above date with your own, to find out more visit http://keith-wood.name/countdown.html
+});
+</script>
+<!--/JS-->
+
+</head>
+
+<body>
+
+<!--DARK OVERLAY-->
+<div class="overlay"></div>
+<!--/DARK OVERLAY-->
+
+<!--WRAP-->
+<div id="wrap">
+	<!--CONTAINER-->
+	<div class="container">
+		<img src="images/paperplane.png" alt="Paper Plane" class="image-align" />
+		<h1>
+			<span>We are</span><br/>
+			Reaching For <span class="yellow">The Moon.</span>
+		</h1>
+		<p>Our site is currently <strong>under construction</strong> but we are working hard<br/> to create a new and fresh design.</p>
+		<div id="defaultCountdown"></div>
+		<form action="#">
+			<input type="text" name="email" id="email" placeholder="Your email">
+			<input type="submit" value="Subscribe">
+		</form>
+	</div>
+	<!--/CONTAINER-->
+</div>
+<!--/WRAP-->
+
+</body>
 </html>
